@@ -1,6 +1,6 @@
-From 0f41561801ee0a8120477d11fb187c505aad9347 Mon Sep 17 00:00:00 2001
+From 6047b8a16e65b98e424673b491a74246ca843ddb Mon Sep 17 00:00:00 2001
 From: root <286095742@qq.com>
-Date: Sat, 25 Nov 2023 13:43:55 +0800
+Date: Sat, 25 Nov 2023 14:01:53 +0800
 Subject: [PATCH] add-all-l3-box-dts
 
 ---
@@ -112,9 +112,9 @@ Subject: [PATCH] add-all-l3-box-dts
  .../dts/amlogic/meson-sm1-x96-max-plus-q2.dts |  21 +
  .../dts/amlogic/meson-sm1-x96-max-plus.dts    | 251 +++++++++
  arch/arm64/boot/dts/amlogic/meson-sm1.dtsi    |   4 +
- arch/arm64/boot/dts/amlogic/overlay/Makefile  |  10 +-
+ arch/arm64/boot/dts/amlogic/overlay/Makefile  |   4 +-
  .../dts/amlogic/overlay/meson-openvfd.dts     |  10 +
- 110 files changed, 7741 insertions(+), 319 deletions(-)
+ 110 files changed, 7742 insertions(+), 312 deletions(-)
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-s905l3a-cm311.dts
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-s905l3a-e900v22c.dts
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-s905l3a-m401a.dts
@@ -9591,26 +9591,23 @@ index ba52da32cd73..6452d4e35359 100644
 +	power-domains = <&pwrc PWRC_SM1_NNA_ID>;
 +};
 diff --git a/arch/arm64/boot/dts/amlogic/overlay/Makefile b/arch/arm64/boot/dts/amlogic/overlay/Makefile
-index aa1be0fb1844..d8e6dc720dc8 100644
+index aa1be0fb1844..014906a5b754 100644
 --- a/arch/arm64/boot/dts/amlogic/overlay/Makefile
 +++ b/arch/arm64/boot/dts/amlogic/overlay/Makefile
-@@ -2,18 +2,12 @@
- dtbo-$(CONFIG_ARCH_MESON) += \
- 	meson-i2cA.dtbo \
+@@ -4,6 +4,7 @@ dtbo-$(CONFIG_ARCH_MESON) += \
  	meson-i2cB.dtbo \
-+	meson-openvfd.dtbo \
  	meson-uartA.dtbo \
  	meson-uartC.dtbo \
++	meson-openvfd.dtbo \
  	meson-w1-gpio.dtbo \
  	meson-w1AB-gpio.dtbo \
--	meson-g12-gxl-cma-pool-896MB.dtbo \
--	meson-g12a-radxa-zero-gpio-8-led.dtbo \
--	meson-g12a-radxa-zero-gpio-10-led.dtbo \
--	meson-g12b-odroid-n2-spi.dtbo \
--	meson-sm1-bananapi-rtl8822cs.dtbo \
--	meson-sm1-bananapi-uartA.dtbo \
--	meson-sm1-bananapi-uartAO_B.dtbo \
+ 	meson-g12-gxl-cma-pool-896MB.dtbo \
+@@ -13,7 +14,8 @@ dtbo-$(CONFIG_ARCH_MESON) += \
+ 	meson-sm1-bananapi-rtl8822cs.dtbo \
+ 	meson-sm1-bananapi-uartA.dtbo \
+ 	meson-sm1-bananapi-uartAO_B.dtbo \
 -	meson-sm1-bananapi-uartB.dtbo
++	meson-sm1-bananapi-uartB.dtbo \
 +	meson-g12-gxl-cma-pool-896MB.dtbo
  
  scr-$(CONFIG_ARCH_MESON) += \
