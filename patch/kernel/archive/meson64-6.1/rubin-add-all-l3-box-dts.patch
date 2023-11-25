@@ -1,6 +1,6 @@
-From 38ce5308697963dd4b35743878ed7b815d8d1829 Mon Sep 17 00:00:00 2001
+From b9d08e42d49ff7c94330cc8572b01f0f3d168588 Mon Sep 17 00:00:00 2001
 From: root <286095742@qq.com>
-Date: Sat, 25 Nov 2023 14:28:26 +0800
+Date: Sat, 25 Nov 2023 14:40:36 +0800
 Subject: [PATCH] add-all-l3-box-dts
 
 ---
@@ -44,7 +44,6 @@ Subject: [PATCH] add-all-l3-box-dts
  .../dts/amlogic/meson-gxbb-minix-neo-u1.dts   | 190 +++++++
  .../dts/amlogic/meson-gxbb-mxq-pro-plus.dts   |  57 +++
  .../boot/dts/amlogic/meson-gxbb-nanopi-k2.dts |   5 +-
- .../boot/dts/amlogic/meson-gxbb-odroidc2.dts  |  43 +-
  .../boot/dts/amlogic/meson-gxbb-p200.dts      |  61 +++
  .../boot/dts/amlogic/meson-gxbb-p201.dts      |  40 ++
  .../boot/dts/amlogic/meson-gxbb-wetek-hub.dts |   4 +
@@ -115,7 +114,7 @@ Subject: [PATCH] add-all-l3-box-dts
  arch/arm64/boot/dts/amlogic/meson-sm1.dtsi    |   4 +
  arch/arm64/boot/dts/amlogic/overlay/Makefile  |   1 +
  .../dts/amlogic/overlay/meson-openvfd.dts     |  10 +
- 111 files changed, 7741 insertions(+), 353 deletions(-)
+ 110 files changed, 7740 insertions(+), 311 deletions(-)
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-s905l3a-cm311.dts
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-s905l3a-e900v22c.dts
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-s905l3a-m401a.dts
@@ -4139,81 +4138,6 @@ index 2ee48261a2ea..7d94160f5802 100644
  
  	mmc-pwrseq = <&emmc_pwrseq>;
  	vmmc-supply = <&vcc3v3>;
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-index 7af088c7366d..201596247fd9 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-@@ -17,8 +17,6 @@ / {
- 
- 	aliases {
- 		serial0 = &uart_AO;
--		serial1 = &uart_A;
--		serial2 = &uart_C;
- 		ethernet0 = &ethmac;
- 	};
- 
-@@ -176,32 +174,6 @@ hdmi_connector_in: endpoint {
- 		};
- 	};
- 
--	spi-gpio {
--		compatible = "spi-gpio";
--		#address-cells = <0x1>;
--		#size-cells = <0x0>;
--		ranges;
--		status = "disabled";
--		sck-gpios  = <&gpio GPIOX_2 0>;
--		miso-gpios = <&gpio GPIOX_4 0>;
--		mosi-gpios = <&gpio GPIOX_7 0>;
--		cs-gpios  = <&gpio GPIOX_3 0
--			     &gpio GPIOX_1 0>;
--		num-chipselects = <2>;
--
--		/* clients */
--		spidev0@0 {
--			compatible = "spidev";
--			reg = <0>;
--			spi-max-frequency = <500000>;
--		};
--		spidev0@1 {
--			compatible = "spidev";
--			reg = <1>;
--			spi-max-frequency = <500000>;
--		};
--	};
--
- 	sound {
- 		compatible = "amlogic,gx-sound-card";
- 		model = "ODROID-C2";
-@@ -376,8 +348,7 @@ &saradc {
- };
- 
- &scpi_clocks {
--	/* Works only with new blobs that have limited DVFS table */
--	status = "okay";
-+	status = "disabled";
- };
- 
- /* SD */
-@@ -428,18 +399,6 @@ &uart_AO {
- 	pinctrl-names = "default";
- };
- 
--&uart_A {
--	status = "disabled";
--	pinctrl-0 = <&uart_a_pins>;
--	pinctrl-names = "default";
--};
--
--&uart_C {
--	status = "disabled";
--	pinctrl-0 = <&uart_c_pins>;
--	pinctrl-names = "default";
--};
--
- &usb0_phy {
- 	status = "disabled";
- 	phy-supply = <&usb_otg_pwr>;
 diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-p200.dts b/arch/arm64/boot/dts/amlogic/meson-gxbb-p200.dts
 index 3c93d1898b40..27b3ab20f070 100644
 --- a/arch/arm64/boot/dts/amlogic/meson-gxbb-p200.dts
